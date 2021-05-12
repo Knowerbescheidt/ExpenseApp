@@ -1,0 +1,8 @@
+INFO: 2021/05/10 20:26:53 logger.go:32: Test InfoLogger
+WARNING: 2021/05/10 20:26:53 logger.go:33: Test WarningLogger
+ERROR: 2021/05/10 20:26:53 logger.go:34: Test ErrorLogger
+INFO: 2021/05/10 20:26:53 logger.go:35: Loggers have been initialized
+INFO: 2021/05/10 20:30:08 user_handling.go:98: Handle User func is called with method POST
+INFO: 2021/05/10 20:30:09 user_handling.go:107: Post method for handle user was successfull
+INFO: 2021/05/10 20:30:12 user_handling.go:98: Handle User func is called with method POST
+INFO: 2021/05/10 20:30:12 user_handling.go:107: Post method for handle user was successfull
