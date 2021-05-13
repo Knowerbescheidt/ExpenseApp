@@ -87,8 +87,10 @@ func handlePostUser(w http.ResponseWriter, r *http.Request) error {
 		log.Fatal(err)
 	}
 	//take that instance and put it into the database
-	fmt.Println("This user has been found", *user)
-	db_handling.WriteUserToDb(user)
+	err = db_handling.WriteUserToDb(user)
+	if err != nil {
+		http.Error(w, "Bad Request", 400)
+	}
 
 	return nil
 }
