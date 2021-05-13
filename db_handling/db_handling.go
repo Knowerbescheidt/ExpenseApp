@@ -5,9 +5,11 @@ package db_handling
 import (
 	"context"
 	"database/sql"
+	"errors"
 	"fmt"
 
 	"backend_server/entities"
+	"backend_server/logger"
 
 	pg "github.com/go-pg/pg/v10"
 	orm "github.com/go-pg/pg/v10/orm"
@@ -127,7 +129,7 @@ func CheckUserExistence(userEmail string) (exists bool) {
 }
 
 //check if user is already in db if so rturn error
-func WriteUserToDb(user *User) {
+func WriteUserToDb(user *User) (err error) {
 
 	if !CheckUserExistence(user.Email) {
 		db := ConnectDbSQL()
@@ -137,6 +139,11 @@ func WriteUserToDb(user *User) {
 		`
 
 		db.QueryRow(sqlStatement, user.Firstname, user.Lastname, user.Address, user.Email)
+		return nil
+	} else {
+		logger.InfoLogger.Println("User with email ", user.Email, "already in db and will not be written into the db.")
+		err := errors.New("problem occured")
+		return err
 	}
 
 }
