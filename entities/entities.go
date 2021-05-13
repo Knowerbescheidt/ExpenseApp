@@ -4,7 +4,7 @@ package entities
 // in json encoded because they are not exported when in small cases
 // das entspricht allerdings nicht json convention
 type User struct {
-	UserId    string `json:"userId"`
+	UserId    int    `json:"userId"`
 	Email     string `json:"emailAddress"`
 	Firstname string `json:"firstName"`
 	Lastname  string `json:"lastName"`
@@ -16,8 +16,8 @@ type Users struct {
 }
 
 type Transaction struct {
-	TransactionId     string `json:"transactionId"`
-	TransactionUserId int    `json:"transactionUserId"`
+	TransactionId     int `json:"transactionId"`
+	TransactionUserId int `json:"transactionUserId"`
 	//expense or income
 	TransactionCategory string `json:"transactionCategory"`
 	TransactionGroup    string `json:"transactionGroup"`
@@ -31,7 +31,7 @@ type Transactions struct {
 }
 
 type Account struct {
-	AccountId       string `json:"accountId"`
+	AccountId       int    `json:"accountId"`
 	AccountUserId   int    `json:"accountUserId"`
 	AccountBalance  int    `json:"accountBalance"`
 	AccountCurrency string `json:"accountCurrency"`
