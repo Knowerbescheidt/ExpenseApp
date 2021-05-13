@@ -105,10 +105,13 @@ func DeleteUserByEmail(userEmail string) (err error) {
 
 	db := ConnectDBORM()
 
-	var user_ User
+	if exists := CheckUserExistence(userEmail); exists {
+		var user_ User
+		_, err = db.Model(&user_).Where("email = ?", userEmail).Delete()
 
-	_, err = db.Model(&user_).Where("userid = ?", userEmail).Delete()
-
+	} else {
+		err = errors.New("User Not Found")
+	}
 	return err
 }
 
