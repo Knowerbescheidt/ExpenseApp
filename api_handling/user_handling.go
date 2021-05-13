@@ -136,7 +136,7 @@ func handleGetUser(w http.ResponseWriter, r *http.Request) {
 
 	userPointer, err := db_handling.GetUserByEmail(userEmail[0])
 	if err != nil {
-		http.Error(w, "For the Requested Resource nothing could be found", 404)
+		http.Error(w, "For the Requested Resource nothing could be found", http.StatusNotFound)
 		return
 	}
 
@@ -159,7 +159,7 @@ func handleDeleteUser(w http.ResponseWriter, r *http.Request) (err error) {
 
 	err = db_handling.DeleteUserByEmail(userEmailToDelete[0])
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, err.Error(), http.StatusNotFound)
 		return
 	}
 	return
