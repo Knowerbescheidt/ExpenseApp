@@ -36,33 +36,36 @@ https://github.com/golang-migrate/migrate
 
 SQL Code to Generate DB
 
-CREATE TABLE users (
-	user_id serial NOTNULL,
-	email varchar NOTNULL,
-	firstname varchar NOTNULL,
-	lastname varchar NOTNULL,
+CREATE TABLE IF NOT EXISTS users (
+	user_id serial NOT NULL,
+	email varchar NOT NULL,
+	firstname varchar NOT NULL,
+	lastname varchar NOT NULL,
+	address varchar,
 	PRIMARY KEY (user_Id)
-)
+);
 
 CREATE TABLE IF NOT EXISTS transactions (
-	tr_id serial NOTNULL,
-	tr_userId int NOTNULL,
-	tr_category varchar NOTNULL,
+	tr_id serial NOT NULL,
+	tr_userId int NOT NULL,
+	tr_category varchar NOT NULL,
 	tr_group varchar,
 	tr_amount int,
 	tr_date date,
 	tr_currency varchar,
 	PRIMARY KEY(tr_id),
 	FOREIGN KEY(tr_userId) REFERENCES users (user_id)
-)
+);
 
 CREATE TABLE IF NOT EXISTS accounts (
-	acc_id serial NOTNULL,
-	acc_userId int NOTNULL,
+	acc_id serial NOT NULL,
+	acc_userId int NOT NULL,
 	acc_balance int,
-	acc_currency string,
+	acc_currency varchar,
 	PRIMARY KEY(acc_id),
 	FOREIGN KEY(acc_userId) REFERENCES users (user_id)
 )
 
-
+Drop Table accounts;
+Drop Table transactions;
+Drop Table users

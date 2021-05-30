@@ -21,7 +21,7 @@ func main() {
 
 	http.HandleFunc("/user", api_handling.Handle_user)
 
-	http.HandleFunc("/expense", api_handling.Testapi)
+	http.HandleFunc("/transaction", api_handling.Testapi)
 
 	http.HandleFunc("/test", testapi)
 
