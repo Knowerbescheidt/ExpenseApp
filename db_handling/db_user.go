@@ -16,7 +16,9 @@ func GetUserByEmail(userEmail string) (user *User, err error) {
 	var user_ User
 
 	err = db.Model(&user_).Where("email = ?", userEmail).Select()
-
+	if err != nil {
+		logger.InfoLogger.Println("No user with email Address:", userEmail, " could be found returning Error.")
+	}
 	return &user_, err
 }
 
@@ -29,6 +31,7 @@ func DeleteUserByEmail(userEmail string) (err error) {
 		_, err = db.Model(&user_).Where("email = ?", userEmail).Delete()
 
 	} else {
+		logger.InfoLogger.Println("Trying to Delete User but no user with email Address:", userEmail, " could be found. Returning Error")
 		err = errors.New("User Not Found")
 	}
 	return err
@@ -55,16 +58,15 @@ func WriteUserToDb(user *User) (err error) {
 	if !CheckUserExistence(user.Email) {
 		db := ConnectDbSQL()
 
-		sqlStatement := `INSERT INTO users (firstname, lastname, address, email)
+		sqlInsert := `INSERT INTO users (firstname, lastname, address, email)
 		VALUES ($1, $2, $3, $4)
 		`
-
-		err := db.QueryRow(sqlStatement, user.Firstname, user.Lastname, user.Address, user.Email)
+		err := db.QueryRow(sqlInsert, user.Firstname, user.Lastname, user.Address, user.Email)
 		fmt.Println(err)
 		return nil
 	} else {
 		logger.InfoLogger.Println("User with email ", user.Email, "already in db and will not be written into the db.")
-		err := errors.New("problem occured")
+		err := errors.New("User already exists")
 		return err
 	}
 

@@ -45,5 +45,5 @@ func Handle_transaction(w http.ResponseWriter, r *http.Request) {
 }
 
 func handlePostTransaction(w http.ResponseWriter, r *http.Request) (err error) {
-
+	return nil
 }
